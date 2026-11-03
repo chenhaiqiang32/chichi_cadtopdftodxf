@@ -1,0 +1,20 @@
+{
+  "name": "cad-pdf-plugin",
+  "version": "1.0.0",
+  "private": true,
+  "description": "DWG/DXF to PDF/DXF conversion service based on MLightCAD pdf-renderer and data-model dxfOut",
+  "type": "module",
+  "workspaces": [
+    "server",
+    "demo"
+  ],
+  "scripts": {
+    "dev:server": "npm run dev --workspace=server",
+    "dev:demo": "npm run dev --workspace=demo",
+    "build": "npm run build --workspace=server && npm run build --workspace=demo",
+    "start": "npm run start --workspace=server"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

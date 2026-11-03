@@ -1,0 +1,33 @@
+{
+  "name": "@cad-pdf/server",
+  "version": "1.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@mlightcad/data-model": "1.15.14",
+    "@mlightcad/libredwg-converter": "3.15.14",
+    "@mlightcad/libredwg-web": "^0.8.2",
+    "@mlightcad/mtext-parser": "1.5.5",
+    "@mlightcad/mtext-renderer": "^0.13.5",
+    "@mlightcad/pdf-renderer": "1.7.7",
+    "@napi-rs/canvas": "^1.1.0",
+    "@velipso/polybool": "^1.1.1",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "multer": "^2.0.2",
+    "three": "^0.186.1"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/multer": "^1.4.12",
+    "@types/node": "^22.13.10",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2"
+  }
+}

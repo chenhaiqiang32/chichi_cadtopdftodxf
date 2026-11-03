@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DWG → PDF / DXF 转换 Demo</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="hero">
+        <p class="brand">图纸精灵 · CAD Convert</p>
+        <h1>DWG / DXF 转 PDF · DXF</h1>
+        <p class="lead">
+          上传图纸文件，调用转换服务生成矢量 PDF（<code>@mlightcad/pdf-renderer</code>）
+          或 DXF（<code>AcDbDatabase.dxfOut</code>，同
+          <a href="https://mlightcad.com/cad-viewer/docs/guide/script/api.html" target="_blank" rel="noopener"
+            >Script API <code>cad.file.saveDxf</code></a
+          >）。
+        </p>
+      </header>
+
+      <main class="panel">
+        <form id="convert-form">
+          <label class="dropzone" id="dropzone" for="file-input">
+            <input
+              id="file-input"
+              name="file"
+              type="file"
+              accept=".dwg,.dxf,application/acad,image/vnd.dwg,application/dxf"
+              required
+            />
+            <span class="dropzone-title">拖拽文件到此处，或点击选择</span>
+            <span class="dropzone-hint">支持 .dwg / .dxf，最大约 80MB</span>
+            <span class="file-name" id="file-name"></span>
+          </label>
+
+          <fieldset class="target">
+            <legend>输出格式</legend>
+            <label class="radio">
+              <input type="radio" name="target" value="pdf" checked />
+              PDF
+            </label>
+            <label class="radio">
+              <input type="radio" name="target" value="dxf" />
+              DXF
+            </label>
+          </fieldset>
+
+          <div class="options" id="pdf-options">
+            <label>
+              模型空间裁剪
+              <select name="fit" id="fit">
+                <option value="extents" selected>Extents（范围）</option>
+                <option value="current">Current（当前视图）</option>
+              </select>
+            </label>
+            <label class="checkbox">
+              <input type="checkbox" name="exportLayouts" id="exportLayouts" />
+              同时导出图纸空间布局页
+            </label>
+          </div>
+
+          <div class="options" id="dxf-options" hidden>
+            <label>
+              数值精度（precision）
+              <input
+                type="number"
+                name="precision"
+                id="precision"
+                min="0"
+                max="16"
+                step="1"
+                value="6"
+              />
+            </label>
+            <label>
+              DXF 格式
+              <select name="format" id="format">
+                <option value="ascii" selected>ASCII</option>
+                <option value="binary">Binary</option>
+              </select>
+            </label>
+            <label class="checkbox">
+              <input type="checkbox" name="saveThumbnailImage" id="saveThumbnailImage" />
+              包含缩略图（saveThumbnailImage）
+            </label>
+          </div>
+
+          <button type="submit" id="submit-btn">开始转换</button>
+        </form>
+
+        <div class="status" id="status" hidden></div>
+
+        <section class="result" id="result" hidden>
+          <h2>转换结果</h2>
+          <p id="result-meta"></p>
+          <div class="result-actions">
+            <a id="download-link" href="#" download="drawing.pdf">下载文件</a>
+            <button type="button" id="preview-btn" class="secondary">预览 PDF</button>
+          </div>
+          <iframe id="preview" title="PDF preview" hidden></iframe>
+        </section>
+      </main>
+
+      <footer class="foot">
+        <span>API: <code>POST /api/convert</code> · <code>POST /api/convert-dxf</code></span>
+        <span id="health">服务状态检测中…</span>
+      </footer>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
